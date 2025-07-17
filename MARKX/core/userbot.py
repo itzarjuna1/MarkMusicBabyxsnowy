@@ -1,46 +1,28 @@
-import sys
+import asyncio
 from pyrogram import Client
 from pyrogram.sessions import StringSession
+from config import STRING_SESSION, API_ID, API_HASH
 
-import config
-from ..logging import LOGGER
+Userbot = None
 
-assistants = []
-assistantids = []
+if STRING_SESSION:
+    print("[INFO] Starting Userbot Session...")
 
-class Userbot:
-    def __init__(self):
-        self.one = Client(
-            StringSession(config.STRING1),
-            config.API_ID,
-            config.API_HASH,
-            no_updates=True,
-        ) if config.STRING1 else None
+    try:
+        Userbot = Client(
+            name="Userbot",
+            session_string=StringSession(STRING_SESSION),
+            api_id=API_ID,
+            api_hash=API_HASH
+        )
 
-        self.two = Client(
-            StringSession(config.STRING2),
-            config.API_ID,
-            config.API_HASH,
-            no_updates=True,
-        ) if config.STRING2 else None
+        asyncio.get_event_loop().run_until_complete(Userbot.start())
+        me = asyncio.get_event_loop().run_until_complete(Userbot.get_me())
+        print(f"[USERBOT] Started as {me.first_name} (ID: {me.id})")
 
-        self.three = Client(
-            StringSession(config.STRING3),
-            config.API_ID,
-            config.API_HASH,
-            no_updates=True,
-        ) if config.STRING3 else None
+    except Exception as e:
+        print(f"[ERROR] Failed to start userbot: {e}")
+        Userbot = None
 
-        self.four = Client(
-            StringSession(config.STRING4),
-            config.API_ID,
-            config.API_HASH,
-            no_updates=True,
-        ) if config.STRING4 else None
-
-        self.five = Client(
-            StringSession(config.STRING5),
-            config.API_ID,
-            config.API_HASH,
-            no_updates=True,
-        ) if config.STRING5 else None
+else:
+    print("[INFO] No STRING_SESSION provided. Skipping userbot startup.")
