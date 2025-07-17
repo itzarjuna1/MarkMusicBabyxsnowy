@@ -11,6 +11,8 @@ API_ID = int(getenv("API_ID", "24880308"))
 API_HASH = getenv("API_HASH", "fce3dc86e231613c5e0e164cdf8f1ca9")
 BOT_TOKEN = getenv("BOT_TOKEN", "7597057529:AAEOEhIY2vAAeWyJNLapAc0sDLHo9Az7wmY")
 MONGO_DB_URI = getenv("MONGO_DB_URI", "mongodb+srv://knight4563:knight4563@cluster0.a5br0se.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+SPOTIFY_CLIENT_ID=your_client_id
+SPOTIFY_CLIENT_SECRET=your_client_secret
 
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", "90"))
 SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180"))
