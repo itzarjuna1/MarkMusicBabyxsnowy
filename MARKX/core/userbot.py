@@ -1,13 +1,14 @@
 import sys
 from pyrogram import Client
 from pyrogram.sessions import StringSession
+
 import config
 from ..logging import LOGGER
 
 assistants = []
 assistantids = []
 
-class Userbot(Client):
+class Userbot:
     def __init__(self):
         self.one = Client(
             session_name=StringSession(config.STRING1),
