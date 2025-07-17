@@ -1,31 +1,29 @@
-from MARKX.core.bot import MARKXBot
+import json
+import os
+
+from MARKX.core.bot import MARKXBOT
 from MARKX.core.dir import dirr
 from MARKX.core.git import git
 from MARKX.core.userbot import Userbot
+from MARKX.core.youtube import anniegirl
 from MARKX.misc import dbb, heroku, sudo
-from aiohttp import ClientSession
 
 from .logging import LOGGER
 
-# Directories
 dirr()
 
-# Check Git Updates
 git()
 
-# Initialize Memory DB
 dbb()
 
-# Heroku APP
 heroku()
 
-# Load Sudo Users from DB
 sudo()
 
-# Bot Client
-app = MARKXBot()
+anniegirl()
 
-# Assistant Client
+app = MARKXBOT()
+
 userbot = Userbot()
 
 from .platforms import *
@@ -37,5 +35,4 @@ Apple = AppleAPI()
 Resso = RessoAPI()
 SoundCloud = SoundAPI()
 Telegram = TeleAPI()
-
-aiohttpsession = ClientSession()
+HELPABLE = {}
