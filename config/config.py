@@ -107,7 +107,7 @@ def validate_url(name, url, default_asset):
             print(f"[ERROR] - Your {name} url is wrong. Please ensure that it starts with https://")
             sys.exit()
 
-validate_url("UPSTREAM_REPO", UPSTREAM_REPO, "")
+validate_url("UPSTREAM_REPO", UPSTREAM_REPO, "https://github.com/itzarjuna1/MarkMusicBabyxsnowy")
 validate_url("PING_IMG_URL", PING_IMG_URL, "assets/Ping.jpeg")
 validate_url("PLAYLIST_IMG_URL", PLAYLIST_IMG_URL, "assets/Playlist.jpeg")
 validate_url("GLOBAL_IMG_URL", GLOBAL_IMG_URL, "assets/Global.jpeg")
