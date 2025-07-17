@@ -1,66 +1,41 @@
-import asyncio
-from aiohttp import ClientSession
-
 from MARKX.core.bot import MARKXBot
 from MARKX.core.dir import dirr
 from MARKX.core.git import git
 from MARKX.core.userbot import Userbot
 from MARKX.misc import dbb, heroku, sudo
+from aiohttp import ClientSession
+
 from .logging import LOGGER
 
-# Globals for bot clients
-app = None
-userbot = None
+# Directories
+dirr()
 
-# Globals for APIs
-YouTube = None
-Carbon = None
-Spotify = None
-Apple = None
-Resso = None
-SoundCloud = None
-Telegram = None
+# Check Git Updates
+git()
 
-# Global aiohttp session
-aiohttpsession = None
+# Initialize Memory DB
+dbb()
 
-async def init_session():
-    global aiohttpsession
-    aiohttpsession = ClientSession()
+# Heroku APP
+heroku()
 
-async def close_session():
-    global aiohttpsession
-    if aiohttpsession:
-        await aiohttpsession.close()
+# Load Sudo Users from DB
+sudo()
 
-async def startup():
-    global app, userbot
-    global YouTube, Carbon, Spotify, Apple, Resso, SoundCloud, Telegram
+# Bot Client
+app = MARKXBot()
 
-    # Init HTTP session
-    await init_session()
+# Assistant Client
+userbot = Userbot()
 
-    # Setup tasks
-    dirr()
-    git()
-    dbb()
-    heroku()
-    sudo()
+from .platforms import *
 
-    # Initialize bot clients
-    app = MARKXBot()
-    userbot = Userbot()
+YouTube = YouTubeAPI()
+Carbon = CarbonAPI()
+Spotify = SpotifyAPI()
+Apple = AppleAPI()
+Resso = RessoAPI()
+SoundCloud = SoundAPI()
+Telegram = TeleAPI()
 
-    # Import and initialize API wrappers
-    from .platforms import YouTubeAPI, CarbonAPI, SpotifyAPI, AppleAPI, RessoAPI, SoundAPI, TeleAPI
-
-    YouTube = YouTubeAPI()
-    Carbon = CarbonAPI()
-    Spotify = SpotifyAPI()
-    Apple = AppleAPI()
-    Resso = RessoAPI()
-    SoundCloud = SoundAPI()
-    Telegram = TeleAPI()
-
-async def shutdown():
-    await close_session()
+aiohttpsession = ClientSession()
