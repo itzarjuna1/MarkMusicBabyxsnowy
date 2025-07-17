@@ -1,7 +1,7 @@
 import json
 import os
 
-from MARKX.core.bot import MARKXBOT
+from MARKX.core.bot import MARKXBot
 from MARKX.core.dir import dirr
 from MARKX.core.git import git
 from MARKX.core.userbot import Userbot
@@ -20,9 +20,7 @@ heroku()
 
 sudo()
 
-anniegirl()
-
-app = MARKXBOT()
+app = MARKXBot()
 
 userbot = Userbot()
 
