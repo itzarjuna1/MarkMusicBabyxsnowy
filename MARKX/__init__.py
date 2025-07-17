@@ -8,6 +8,10 @@ from MARKX.core.userbot import Userbot
 from MARKX.misc import dbb, heroku, sudo
 from .logging import LOGGER
 
+# Declare these at module level so they can be imported safely
+app = None
+userbot = None
+
 # Global aiohttp session
 aiohttpsession = None
 
@@ -21,23 +25,25 @@ async def close_session():
         await aiohttpsession.close()
 
 async def startup():
-    # 1. Start aiohttp session
+    global app, userbot
+
+    # Initialize aiohttp session
     await init_session()
 
-    # 2. Run app setup routines
+    # Run setup tasks
     dirr()
     git()
     dbb()
     heroku()
     sudo()
 
-    # 3. Initialize Bot Clients
-    global app, userbot
+    # Create bot clients
     app = MARKXBot()
     userbot = Userbot()
 
-    # 4. Initialize API clients
+    # Import and initialize API wrappers
     from .platforms import YouTubeAPI, CarbonAPI, SpotifyAPI, AppleAPI, RessoAPI, SoundAPI, TeleAPI
+
     global YouTube, Carbon, Spotify, Apple, Resso, SoundCloud, Telegram
     YouTube = YouTubeAPI()
     Carbon = CarbonAPI()
@@ -47,11 +53,6 @@ async def startup():
     SoundCloud = SoundAPI()
     Telegram = TeleAPI()
 
-# Entry point
-if __name__ == "__main__":
-    try:
-        asyncio.run(startup())
-    except KeyboardInterrupt:
-        pass
-    finally:
-        asyncio.run(close_session())
+# Graceful shutdown helper
+async def shutdown():
+    await close_session()
