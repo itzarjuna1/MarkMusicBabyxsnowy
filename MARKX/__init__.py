@@ -40,7 +40,7 @@ async def startup():
 
     dirr()
     git()
-    dbb()
+    db()
     heroku()
     sudo()
 
