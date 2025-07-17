@@ -5,7 +5,7 @@ from MARKX.core.bot import MARKXBot
 from MARKX.core.dir import dirr
 from MARKX.core.git import git
 from MARKX.core.userbot import Userbot
-from MARKX.misc import dbb, heroku, sudo
+from MARKX.misc import db, heroku, sudo
 from .logging import LOGGER
 
 # Declare globals at module level
